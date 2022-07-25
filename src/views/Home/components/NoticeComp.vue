@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { Icon } from "@vicons/utils";
 import { Alert16Filled as NoticeIcon } from "@vicons/fluent";
+import { getNoticeList } from "@/api";
+import type { NoticeItem } from "@/api";
+import { ref } from "vue";
+const noticeList = ref<NoticeItem[]>([]);
+
+getNoticeList({ pageIndex: 1, pageSize: 10 }).then((list) => {
+  noticeList.value = list;
+});
 </script>
 
 <template>
@@ -11,25 +19,8 @@ import { Alert16Filled as NoticeIcon } from "@vicons/fluent";
           <NoticeIcon />
         </Icon>
         <n-carousel autoplay :show-dots="false" draggable :interval="6000">
-          <n-button text>
-            <n-ellipsis>
-              【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-            </n-ellipsis>
-          </n-button>
-          <n-button text>
-            <n-ellipsis>
-              【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-            </n-ellipsis>
-          </n-button>
-          <n-button text>
-            <n-ellipsis>
-              【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-            </n-ellipsis>
-          </n-button>
-          <n-button text>
-            <n-ellipsis>
-              【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-            </n-ellipsis>
+          <n-button text v-for="item of noticeList" :key="item.id">
+            <n-ellipsis> 【通知】{{ item.title }} </n-ellipsis>
           </n-button>
         </n-carousel>
       </div>

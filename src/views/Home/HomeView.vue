@@ -2,6 +2,8 @@
 import CarouselComp from "./components/CarouselComp.vue";
 import NoticeComp from "./components/NoticeComp.vue";
 import HotMarketsComp from "./components/HotMarketsComp.vue";
+import TradingVolume from "./components/TradingVolume.vue";
+import MarketsComp from "./components/Markets/MarketsComp.vue";
 </script>
 
 <template>
@@ -9,5 +11,7 @@ import HotMarketsComp from "./components/HotMarketsComp.vue";
     <CarouselComp />
     <NoticeComp />
     <HotMarketsComp />
+    <TradingVolume />
+    <MarketsComp />
   </main>
 </template>

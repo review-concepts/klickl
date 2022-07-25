@@ -9,10 +9,10 @@ const http = axios.create({
 http.interceptors.response.use(
   (response) => {
     const { config, status } = response;
-    console.log(
-      `[RESPONSE] ${config.url}:`,
-      response.data ? response.data : response
-    );
+    // console.log(
+    //   `[RESPONSE] ${config.url}:`,
+    //   response.data ? response.data : response
+    // );
     if (status !== 200) return new Error(status.toString());
     return response;
   },

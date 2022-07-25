@@ -27,3 +27,22 @@ export interface HotMarketItem {
   number: number;
   data: number[];
 }
+
+export interface TradingVolumeItem {
+  id: string;
+  typeName: string;
+  label: string;
+  count: number;
+  precision: number;
+}
+
+export interface MarketItem {
+  id: string;
+  coinUrl: string;
+  coin: string;
+  coinName: string;
+  price: number;
+  percent: number;
+  total: number;
+  chartData: number[];
+}

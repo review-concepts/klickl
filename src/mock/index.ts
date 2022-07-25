@@ -32,4 +32,14 @@ export default [
     method: "get",
     response: () => Klickl.getHotMarkets(),
   },
+  {
+    url: "/api/getTradingVolume",
+    method: "get",
+    response: () => Klickl.getTradingVolume(),
+  },
+  {
+    url: "/api/getMarkets",
+    method: "post",
+    response: ({ body }: Recordable) => Klickl.getMarkets(body),
+  },
 ] as MockMethod[];

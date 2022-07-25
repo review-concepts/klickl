@@ -5,9 +5,38 @@ import type {
   DownloadQrcode,
   HotMarketItem,
   LanguageItem,
+  MarketItem,
   NoticeItem,
+  TradingVolumeItem,
 } from "./klickl.types";
 import type { PageListBody } from "@/api";
+
+/** getMarkets */
+export const getMarkets = async (body: PageListBody): Promise<MarketItem[]> => {
+  try {
+    const { data } = await http({
+      url: "/api/getMarkets",
+      method: "post",
+      data: body,
+    });
+    return data.data as MarketItem[];
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+/** getTradingVolume  */
+export const getTradingVolume = async (): Promise<TradingVolumeItem[]> => {
+  try {
+    const { data } = await http({
+      url: "/api/getTradingVolume",
+      method: "get",
+    });
+    return data.data as TradingVolumeItem[];
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
 /** getHotMarkets  */
 export const getHotMarkets = async (): Promise<HotMarketItem[]> => {

@@ -11,3 +11,28 @@
   margin: 0 auto;
   width: 1200px;
 }
+
+.imgAnimateScale,
+.imgAnimateUp,
+.imgAnimateDown,
+.imgAnimateLeft,
+.imgAnimateRight {
+  transition: all 0.3s;
+}
+
+@media screen and (min-width: 1200px) {
+  .imgAnimateScale:hover {
+    transform: scale(1.04, 1.04);
+  }
+
+  .imgAnimateUp:hover {
+    transform: translateY(-10px);
+  }
+
+  .imgAnimateLeft:hover {
+    transform: translateX(-10px);
+  }
+  .imgAnimateRight:hover {
+    transform: translateX(10px);
+  }
+}

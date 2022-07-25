@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Icon } from "@vicons/utils";
 import { AlertUrgent20Regular as NoticeIcon } from "@vicons/fluent";
-import type { NoticeItem } from "@/api";
 import { ref } from "vue";
 import { getNoticeList } from "@/api";
+import type { NoticeItem } from "@/api";
 const noticeList = ref<NoticeItem[]>([]);
 
 getNoticeList({ pageIndex: 1, pageSize: 5 }).then((list) => {

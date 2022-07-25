@@ -7,15 +7,19 @@ import getKLineOption from "./getKLineOption";
 const klines = ref<HTMLElement[]>([]);
 
 const hotMarkets = ref<HotMarketItem[]>([]);
+const chartMap: Record<string, echarts.ECharts> = {};
 
 const renderCharts = (list: HotMarketItem[]) => {
   for (let kline of klines.value) {
     const symbol = kline.getAttribute("data-label");
+    if (!symbol) continue;
     const res = list.find((item) => item.symbol === symbol);
     if (res) {
       const klineOption = getKLineOption(res.data);
-      const chart = echarts.init(kline);
-      chart.setOption(klineOption);
+      if (!chartMap[symbol]) {
+        chartMap[symbol] = echarts.init(kline);
+      }
+      chartMap[symbol].setOption(klineOption);
     }
   }
 };
@@ -32,8 +36,8 @@ const getMarketsAndRender = async () => {
 };
 
 let timer: NodeJS.Timer;
-onMounted(() => {
-  getMarketsAndRender();
+onMounted(async () => {
+  await getMarketsAndRender();
   timer = setInterval(() => {
     getMarketsAndRender();
   }, 5000);
@@ -85,7 +89,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .hotMarkets {
-  padding-top: 40px;
+  padding-top: 60px;
   background-color: #f9f7fb;
 
   .kline {

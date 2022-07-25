@@ -5,8 +5,10 @@ import HeaderComp from "@/components/Header/HeaderComp.vue";
 
 <template>
   <n-config-provider :theme-overrides="{ common: { fontWeightStrong: '600' } }">
-    <HeaderComp />
-    <RouterView />
+    <n-message-provider>
+      <HeaderComp />
+      <RouterView />
+    </n-message-provider>
   </n-config-provider>
 </template>
 
