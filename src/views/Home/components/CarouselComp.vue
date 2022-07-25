@@ -1,12 +1,23 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { BannerList } from "@/api";
+import { ref } from "vue";
+import { getBanners } from "@/api";
+
+const banners = ref<BannerList>([]);
+
+getBanners().then((list) => {
+  banners.value = list;
+});
+</script>
 
 <template>
   <n-carousel autoplay draggable>
-    <img class="carousel-img" src="/images/klickl/01-carousel.png" />
-    <img class="carousel-img" src="/images/klickl/02-carousel.png" />
-    <img class="carousel-img" src="/images/klickl/03-carousel.png" />
-    <img class="carousel-img" src="/images/klickl/04-carousel.png" />
-    <img class="carousel-img" src="/images/klickl/05-carousel.png" />
+    <img
+      class="carousel-img"
+      v-for="(url, index) of banners"
+      :key="index"
+      :src="url"
+    />
   </n-carousel>
 </template>
 

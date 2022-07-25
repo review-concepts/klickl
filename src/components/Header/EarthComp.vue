@@ -2,47 +2,22 @@
 import { Icon } from "@vicons/utils";
 import { Earth20Regular as EarchIcon } from "@vicons/fluent";
 import { ref } from "vue";
+import type { LanguageItem, CurrencyItem } from "@/api";
+import { getLanguages, getCurrencies } from "@/api";
 
 const lang = ref("zh-cn");
 const currency = ref("USD");
 
-const langs = [
-  {
-    label: "简体中文",
-    type: "zh-cn",
-  },
-  {
-    label: "繁体中文",
-    type: "zh-tw",
-  },
-  {
-    label: "English",
-    type: "en",
-  },
-  {
-    label: "日本语",
-    type: "jp",
-  },
-];
+const languages = ref<LanguageItem[]>([]);
+const currencies = ref<CurrencyItem[]>([]);
 
-const currencies = [
-  {
-    label: "USD",
-    type: "USD",
-  },
-  {
-    label: "IRR",
-    type: "IRR",
-  },
-  {
-    label: "INR",
-    type: "INR",
-  },
-  {
-    label: "TRY",
-    type: "TRY",
-  },
-];
+getLanguages().then((list) => {
+  languages.value = list;
+});
+
+getCurrencies().then((list) => {
+  currencies.value = list;
+});
 
 const getLangPrimary = (type: string): string => {
   return lang.value === type ? "primary" : "default";
@@ -70,7 +45,7 @@ const getCurrencyPrimary = (type: string): string => {
       </n-space>
       <n-space
         justify="space-between"
-        v-for="(item, index) of langs"
+        v-for="(item, index) of languages"
         :key="item.type"
       >
         <div class="earth-item">

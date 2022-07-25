@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { Icon } from "@vicons/utils";
 import { ArrowBetweenDown20Regular as DownLoadIcon } from "@vicons/fluent";
+import { getDownloadQrcode } from "@/api";
+import type { DownloadQrcode } from "@/api";
+import { ref } from "vue";
+
+const downloadList = ref<DownloadQrcode[]>([]);
+
+getDownloadQrcode().then((list) => {
+  downloadList.value = list;
+});
 </script>
 
 <template>
@@ -17,22 +26,10 @@ import { ArrowBetweenDown20Regular as DownLoadIcon } from "@vicons/fluent";
     <div class="download-wrap">
       <div class="download-title">扫描下载APP</div>
       <n-grid x-gap="12" :cols="3">
-        <n-gi>
+        <n-gi v-for="item of downloadList" :key="item.label">
           <div class="download-item">
-            <n-image src="/images/klickl/qrcode.png" />
-            <span font-secondary class="download-label">iOS</span>
-          </div>
-        </n-gi>
-        <n-gi>
-          <div class="download-item">
-            <n-image src="/images/klickl/qrcode.png" />
-            <span font-secondary class="download-label">Android Beta</span>
-          </div>
-        </n-gi>
-        <n-gi>
-          <div class="download-item">
-            <n-image src="/images/klickl/qrcode.png" />
-            <span font-secondary class="download-label">Google Play</span>
+            <n-image :src="item.url" />
+            <span font-secondary class="download-label">{{ item.label }}</span>
           </div>
         </n-gi>
       </n-grid>

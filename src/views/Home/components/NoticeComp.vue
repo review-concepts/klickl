@@ -10,7 +10,7 @@ import { Alert16Filled as NoticeIcon } from "@vicons/fluent";
         <Icon size="28" color="#999">
           <NoticeIcon />
         </Icon>
-        <n-carousel autoplay :show-dots="false" draggable interval="6000">
+        <n-carousel autoplay :show-dots="false" draggable :interval="6000">
           <n-button text>
             <n-ellipsis>
               【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC

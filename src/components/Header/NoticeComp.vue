@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { Icon } from "@vicons/utils";
 import { AlertUrgent20Regular as NoticeIcon } from "@vicons/fluent";
+import type { NoticeItem } from "@/api";
+import { ref } from "vue";
+import { getNoticeList } from "@/api";
+const noticeList = ref<NoticeItem[]>([]);
+
+getNoticeList({ pageIndex: 1, pageSize: 5 }).then((list) => {
+  noticeList.value = list;
+});
 </script>
 <template>
   <n-popover trigger="click" placement="bottom-end">
@@ -14,23 +22,9 @@ import { AlertUrgent20Regular as NoticeIcon } from "@vicons/fluent";
       </n-button>
     </template>
     <n-list class="notice-list">
-      <n-list-item>
-        <n-ellipsis>
-          【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-        </n-ellipsis>
-        <div font-secondary class="notice-time">2022-07-19 16:46:33</div>
-      </n-list-item>
-      <n-list-item>
-        <n-ellipsis>
-          【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-        </n-ellipsis>
-        <div font-secondary class="notice-time">2022-07-19 16:46:33</div>
-      </n-list-item>
-      <n-list-item>
-        <n-ellipsis>
-          【通知】Klickl将于2022年7月22日15:00（HKT）下架BPTC
-        </n-ellipsis>
-        <div font-secondary class="notice-time">2022-07-19 16:46:33</div>
+      <n-list-item v-for="item of noticeList" :key="item.id">
+        <n-ellipsis> 【通知】 {{ item.title }} </n-ellipsis>
+        <div font-secondary class="notice-time">{{ item.datetime }}</div>
       </n-list-item>
     </n-list>
     <n-space justify="center">
@@ -41,7 +35,7 @@ import { AlertUrgent20Regular as NoticeIcon } from "@vicons/fluent";
 
 <style lang="scss" scoped>
 .notice-list {
-  width: 350px;
+  width: 300px;
 
   :deep(.n-thing-header) {
     white-space: nowrap;

@@ -1,6 +1,6 @@
 import { echarts } from "@/plugins/echarts";
 import type { ECOption } from "@/plugins/echarts";
-export default (): ECOption => {
+export default (data: number[] = []): ECOption => {
   const option: ECOption = {
     grid: {
       top: 0,
@@ -54,7 +54,7 @@ export default (): ECOption => {
         ]),
       },
       showSymbol: false,
-      data: [1, 2, 3, 4, 5],
+      data,
     },
   };
 
