@@ -1,46 +1,23 @@
 <script setup lang="ts">
 import type { HotMarketItem } from "@/api";
 import { getHotMarkets } from "@/api";
-import { echarts } from "@/plugins/echarts";
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import getKLineOption from "./getKLineOption";
-const klines = ref<HTMLElement[]>([]);
+import KlineChartComp from "./KlineChart/KlineChartComp.vue";
 
 const hotMarkets = ref<HotMarketItem[]>([]);
-const chartMap: Record<string, echarts.ECharts> = {};
 
-const renderCharts = (list: HotMarketItem[]) => {
-  for (let kline of klines.value) {
-    const symbol = kline.getAttribute("data-label");
-    if (!symbol) continue;
-    const res = list.find((item) => item.symbol === symbol);
-    if (res) {
-      const klineOption = getKLineOption(res.data);
-      if (!chartMap[symbol]) {
-        chartMap[symbol] = echarts.init(kline);
-      }
-      chartMap[symbol].setOption(klineOption);
-    }
-  }
-};
-
-const getMarketsAndRender = async () => {
-  getHotMarkets()
-    .then((list) => {
-      hotMarkets.value = list;
-      return Promise.resolve(list);
-    })
-    .then((list) => {
-      renderCharts(list);
-    });
+const getMarkets = async () => {
+  getHotMarkets().then((list) => {
+    hotMarkets.value = list;
+  });
 };
 
 let timer: NodeJS.Timer;
 onMounted(async () => {
-  await getMarketsAndRender();
-  timer = setInterval(() => {
-    getMarketsAndRender();
-  }, 5000);
+  await getMarkets();
+  // timer = setInterval(() => {
+  //   getMarkets();
+  // }, 5000);
 });
 
 onBeforeUnmount(() => {
@@ -52,8 +29,12 @@ onBeforeUnmount(() => {
   <div class="hotMarkets">
     <div class="page-inner">
       <n-grid x-gap="12" :cols="4">
-        <n-gi v-for="item of hotMarkets" :key="item.symbol">
-          <n-card size="small" class="market-card">
+        <n-gi v-for="(item, index) of hotMarkets" :key="item.symbol">
+          <n-card
+            size="small"
+            class="wow fadeInUp market-card"
+            :data-wow-delay="index * 100 + 'ms'"
+          >
             <n-thing content-indented>
               <template #header> {{ item.symbol }} </template>
               <template #header-extra>
@@ -74,7 +55,12 @@ onBeforeUnmount(() => {
                   :to="item.number"
                   :precision="2"
                 />
-                <div class="kline" :data-label="item.symbol" ref="klines"></div>
+                <KlineChartComp
+                  width="150px"
+                  height="50px"
+                  :data="item.data"
+                  class="market-kline"
+                />
               </n-space>
             </n-thing>
             <div class="market-mask">
@@ -91,11 +77,6 @@ onBeforeUnmount(() => {
 .hotMarkets {
   padding-top: 60px;
   background-color: #f9f7fb;
-
-  .kline {
-    width: 150px;
-    height: 80px;
-  }
 
   :deep(.market-content > div:first-child) {
     color: #999;
@@ -124,6 +105,10 @@ onBeforeUnmount(() => {
     background-color: rgba(0, 0, 0, 0.4);
     transition: all 0.2s;
     transform: scale(0, 0);
+  }
+
+  .market-kline {
+    padding-top: 20px;
   }
 }
 </style>

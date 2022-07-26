@@ -13,9 +13,9 @@ const getData = async () => {
 let timer: NodeJS.Timer;
 onMounted(async () => {
   await getData();
-  timer = setInterval(() => {
-    getData();
-  }, 6000);
+  // timer = setInterval(() => {
+  //   getData();
+  // }, 6000);
 });
 
 onBeforeUnmount(() => {
@@ -29,9 +29,11 @@ onBeforeUnmount(() => {
       <n-space justify="space-around" size="large">
         <n-statistic
           :label="item.typeName"
-          v-for="item of tradingVolumes"
+          v-for="(item, index) of tradingVolumes"
           :key="item.id"
-          class="imgAnimateUp"
+          class="wow fadeInUp imgAnimateUp"
+          data-wow-duration="1s"
+          :data-wow-delay="index * 200 + 'ms'"
         >
           <n-gradient-text type="primary" size="32">
             <n-number-animation
