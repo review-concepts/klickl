@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@vicons/utils";
 import { Alert16Filled as NoticeIcon } from "@vicons/fluent";
 import { getNoticeList } from "@/api";
 import type { NoticeItem } from "@/api";
@@ -15,9 +14,9 @@ getNoticeList({ pageIndex: 1, pageSize: 10 }).then((list) => {
   <div class="home-notice">
     <div class="page-inner">
       <div class="notice-container">
-        <Icon size="28" color="#999">
+        <n-icon size="28" color="#999">
           <NoticeIcon />
-        </Icon>
+        </n-icon>
         <n-carousel autoplay :show-dots="false" draggable :interval="6000">
           <n-button text v-for="item of noticeList" :key="item.id">
             <n-ellipsis> 【通知】{{ item.title }} </n-ellipsis>

@@ -1,19 +1,12 @@
-<script setup lang="ts">
-import CarouselComp from "./components/CarouselComp.vue";
-import NoticeComp from "./components/NoticeComp.vue";
-import HotMarketsComp from "./components/HotMarketsComp.vue";
-import TradingVolume from "./components/TradingVolume.vue";
-import MarketsComp from "./components/Markets/MarketsComp.vue";
-import DownloadComp from "./components/DownloadComp.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main class="page-views">
-    <CarouselComp />
-    <NoticeComp />
-    <HotMarketsComp />
-    <TradingVolume />
-    <MarketsComp />
-    <DownloadComp />
+  <main class="page-view">
+    <router-view name="CarouselComp" />
+    <router-view name="NoticeComp" />
+    <router-view name="HotMarketsComp" />
+    <router-view name="TradingVolume" />
+    <router-view name="MarketsComp" />
+    <router-view name="DownloadComp" />
   </main>
 </template>

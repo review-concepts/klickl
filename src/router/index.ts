@@ -8,6 +8,25 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      redirect: "/index",
+      children: [
+        {
+          path: "index",
+          components: {
+            CarouselComp: () =>
+              import("../views/Home/components/CarouselComp.vue"),
+            NoticeComp: () => import("../views/Home/components/NoticeComp.vue"),
+            HotMarketsComp: () =>
+              import("../views/Home/components/HotMarketsComp.vue"),
+            TradingVolume: () =>
+              import("../views/Home/components/TradingVolume.vue"),
+            MarketsComp: () =>
+              import("../views/Home/components/Markets/MarketsComp.vue"),
+            DownloadComp: () =>
+              import("../views/Home/components/DownloadComp.vue"),
+          },
+        },
+      ],
     },
     {
       path: "/Quotation",

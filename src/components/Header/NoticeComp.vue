@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@vicons/utils";
 import { AlertUrgent20Regular as NoticeIcon } from "@vicons/fluent";
 import { ref } from "vue";
 import { getNoticeList } from "@/api";
@@ -15,9 +14,9 @@ getNoticeList({ pageIndex: 1, pageSize: 5 }).then((list) => {
     <template #trigger>
       <n-button strong quaternary size="large">
         <template #icon>
-          <Icon>
+          <n-icon>
             <NoticeIcon />
-          </Icon>
+          </n-icon>
         </template>
       </n-button>
     </template>

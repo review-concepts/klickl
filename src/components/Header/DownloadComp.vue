@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@vicons/utils";
 import { ArrowBetweenDown20Regular as DownLoadIcon } from "@vicons/fluent";
 import { getDownloadQrcode } from "@/api";
 import type { DownloadQrcode } from "@/api";
@@ -17,9 +16,9 @@ getDownloadQrcode().then((list) => {
     <template #trigger>
       <n-button strong quaternary size="large">
         <template #icon>
-          <Icon>
+          <n-icon>
             <DownLoadIcon />
-          </Icon>
+          </n-icon>
         </template>
       </n-button>
     </template>

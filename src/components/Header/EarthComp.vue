@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@vicons/utils";
 import { Earth20Regular as EarchIcon } from "@vicons/fluent";
 import { ref } from "vue";
 import type { LanguageItem, CurrencyItem } from "@/api";
@@ -32,9 +31,9 @@ const getCurrencyPrimary = (type: string): string => {
     <template #trigger>
       <n-button strong quaternary size="large">
         <template #icon>
-          <Icon>
+          <n-icon>
             <EarchIcon />
-          </Icon>
+          </n-icon>
         </template>
       </n-button>
     </template>
