@@ -121,7 +121,6 @@ const getBars = async (params: GetBarsParams) => {
     });
 
     console.log("list: ", list);
-
     if (
       params.resolution === intervalMap[interval.value] &&
       params.firstDataRequest &&
@@ -197,6 +196,7 @@ const initTradingView = () => {
     theme: "Dark",
     timezone: "Asia/Shanghai",
   });
+  // ws.initWebSocket();
 };
 
 const setSymbol = (newSymbol: string) => {

@@ -18,13 +18,13 @@ export const getKlineHistory = async (
   params: Record<string, any>
 ): Promise<KlineDataItem[]> => {
   try {
-    const { data }: { data: KlineHistoryItem[] } = await http({
+    const { data }: { data: { data: KlineHistoryItem[] } } = await http({
       url: "/api/GetLineData",
       method: "get",
       params,
     });
 
-    const list = data
+    const list = data.data
       .map((item) => {
         return {
           time: item.id * 1,

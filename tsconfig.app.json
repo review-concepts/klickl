@@ -12,7 +12,8 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "/public/charting_library": ["./public/charting_library"]
     }
   }
 }

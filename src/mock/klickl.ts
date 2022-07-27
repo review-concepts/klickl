@@ -1,5 +1,5 @@
 import type { Recordable } from "vite-plugin-mock";
-import { mock } from "mockjs";
+import { mock, Random } from "mockjs";
 import type { PageListBody } from "@/api";
 
 const responseProps = {
@@ -38,28 +38,66 @@ const list = mock({
   ],
 })["list"];
 
-export default {
-  GetLineData(body: Recordable) {
-    return mock({
-      "data|2000": [
-        {
-          amount: "@float(0, 1, 3, 5)",
-          close: "@float(0, 1, 3, 5)",
-          count: "@integer(1, 100)",
-          high: "@float(0, 1, 3, 5)",
-          id: '@datetime("T")',
-          low: "@float(0, 1, 3, 5)",
-          open: "@float(0, 1, 3, 5)",
-          vol: "@float(0, 1, 3, 5)",
-        },
-      ],
-      NeedLang: true,
-      Status: true,
-      Msg: "",
-      Url: null,
-      StatusCode: "200",
-      Extra: null,
+const getKlineList = (query: Recordable) => {
+  // symbol=eulusdt&period=5min&size=1748
+  const { symbol, period, size } = query;
+  const timestamp = Date.now();
+  let step = 0;
+  switch (period) {
+    case "1min":
+      step = 1 * 60 * 1000;
+      break;
+    case "5min":
+      step = 5 * 60 * 1000;
+    case "15min":
+      step = 15 * 60 * 1000;
+    case "30min":
+      step = 30 * 60 * 1000;
+      break;
+    case "60min":
+      step = 60 * 60 * 1000;
+      break;
+    case "4hour":
+      step = 4 * 60 * 60 * 1000;
+      break;
+    case "1day":
+      step = 24 * 60 * 60 * 1000;
+      break;
+  }
+  let high = Number(Random.float(0, 1, 5, 8).toFixed(4));
+  let low = Number(high.toString().slice(0, -1));
+  const list = Array(Number(size))
+    .fill(1)
+    .map((val, index) => {
+      const randomNum = Math.random();
+      const isOpen = randomNum > 0.5;
+      const offset = Number(`0.000${randomNum.toString().slice(-3)}`);
+      if (isOpen) {
+        low += offset;
+        high += offset;
+      } else {
+        low -= offset;
+        high -= offset;
+      }
+      return {
+        id: timestamp - index * step,
+        count: Random.integer(1, 10),
+        close: isOpen ? low : high,
+        open: isOpen ? high : low,
+        low,
+        high,
+        vol: Random.float(0, 10, 5, 8),
+      };
     });
+  return {
+    data: list,
+    ch: `market.${symbol}.kline.${period}`,
+  };
+};
+
+export default {
+  GetLineData(query: Recordable) {
+    return getKlineList(query);
   },
   getMarkets(body: PageListBody) {
     const { pageIndex, pageSize } = body;
