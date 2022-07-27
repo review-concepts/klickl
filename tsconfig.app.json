@@ -4,8 +4,8 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "public/charting_library/datafeed-api.d.ts",
-    "public/charting_library/charting_library.d.ts"
+    "/public/charting_library/datafeed-api.d.ts",
+    "/public/charting_library/charting_library.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

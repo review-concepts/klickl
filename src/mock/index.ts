@@ -42,4 +42,9 @@ export default [
     method: "post",
     response: ({ body }: Recordable) => Klickl.getMarkets(body),
   },
+  {
+    url: "/api/GetLineData",
+    method: "get",
+    response: ({ query }: Recordable) => Klickl.GetLineData(query),
+  },
 ] as MockMethod[];

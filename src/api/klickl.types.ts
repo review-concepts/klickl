@@ -46,3 +46,32 @@ export interface MarketItem {
   total: number;
   chartData: number[];
 }
+
+export interface GetKlineDataParams {
+  TradingConfigId: string;
+  LineType: number;
+  ClientType?: 0 | 1 | 2 | 1; // Web = 0 Android = 1 iOS = 2 H5 = 4
+  LanguageCode?: string;
+  PageIndex: number;
+  PageSize: number;
+}
+
+export interface KlineHistoryItem {
+  amount: number;
+  close: number;
+  count: number;
+  high: number;
+  id: number;
+  low: number;
+  open: number;
+  vol: number;
+}
+
+export interface KlineDataItem {
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}

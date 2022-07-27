@@ -1,4 +1,5 @@
-import { mock, Random } from "mockjs";
+import type { Recordable } from "vite-plugin-mock";
+import { mock } from "mockjs";
 import type { PageListBody } from "@/api";
 
 const responseProps = {
@@ -38,6 +39,28 @@ const list = mock({
 })["list"];
 
 export default {
+  GetLineData(body: Recordable) {
+    return mock({
+      "data|2000": [
+        {
+          amount: "@float(0, 1, 3, 5)",
+          close: "@float(0, 1, 3, 5)",
+          count: "@integer(1, 100)",
+          high: "@float(0, 1, 3, 5)",
+          id: '@datetime("T")',
+          low: "@float(0, 1, 3, 5)",
+          open: "@float(0, 1, 3, 5)",
+          vol: "@float(0, 1, 3, 5)",
+        },
+      ],
+      NeedLang: true,
+      Status: true,
+      Msg: "",
+      Url: null,
+      StatusCode: "200",
+      Extra: null,
+    });
+  },
   getMarkets(body: PageListBody) {
     const { pageIndex, pageSize } = body;
     const start = (pageIndex - 1) * pageSize;

@@ -4,12 +4,43 @@ import type {
   CurrencyItem,
   DownloadQrcode,
   HotMarketItem,
+  KlineDataItem,
+  KlineHistoryItem,
   LanguageItem,
   MarketItem,
   NoticeItem,
   TradingVolumeItem,
 } from "./klickl.types";
 import type { PageListBody } from "@/api";
+
+/** 取得kline歷史紀錄 */
+export const getKlineHistory = async (
+  params: Record<string, any>
+): Promise<KlineDataItem[]> => {
+  try {
+    const { data }: { data: KlineHistoryItem[] } = await http({
+      url: "/api/GetLineData",
+      method: "get",
+      params,
+    });
+
+    const list = data
+      .map((item) => {
+        return {
+          time: item.id * 1,
+          open: item.open,
+          high: item.high,
+          low: item.low,
+          close: item.close,
+          volume: item.vol,
+        };
+      })
+      .sort((a, b) => (a.time > b.time ? 1 : -1));
+    return list as KlineDataItem[];
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
 /** getMarkets */
 export const getMarkets = async (body: PageListBody): Promise<MarketItem[]> => {
