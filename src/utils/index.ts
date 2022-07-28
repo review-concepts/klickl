@@ -22,3 +22,13 @@ export const swithLocale = (langKey: string) => {
 export interface IUtilsMap<T> {
   [key: string]: T;
 }
+
+export type ThemeMode = "Light" | "Dark";
+
+export const getLoadingScreenColor = (themeMode: ThemeMode) => {
+  return themeMode === "Dark" ? "#17171A" : "#fff";
+};
+
+export * from "./hardCode";
+export * from "./socket";
+export * from "./tv";

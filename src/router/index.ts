@@ -32,11 +32,35 @@ const router = createRouter({
       path: "/Quotation",
       name: "Quotation",
       component: () => import("../views/Quotation/QuotationView.vue"),
+      redirect: "/Quotation/index",
+      children: [
+        {
+          path: "index",
+          components: {
+            TvChartComp: () =>
+              import(
+                "../views/LegalCurrency/components/TvChart/TvChartComp.vue"
+              ),
+          },
+        },
+      ],
     },
     {
       path: "/LegalCurrency",
       name: "LegalCurrency",
       component: () => import("../views/LegalCurrency/LegalCurrencyView.vue"),
+      redirect: "/LegalCurrency/index",
+      children: [
+        {
+          path: "index",
+          components: {
+            TvChartComp: () =>
+              import(
+                "../views/LegalCurrency/components/TvChart/TvChartComp.vue"
+              ),
+          },
+        },
+      ],
     },
     {
       path: "/CurrencyTrade",

@@ -14,8 +14,8 @@ export const intervalMap: Record<string, string> = {
   "60min": "60",
   "4hour": "240",
   "1day": "D",
-  // "1week": "W",
-  // "1mon": "M",
+  "1week": "W",
+  "1mon": "M",
 };
 /** trading-view 的時間區間 */
 export const supported_resolutions = [

@@ -1,7 +1,5 @@
 <template>
-  <div class="page-view">
-    <router-view name="TvChartComp" />
-  </div>
+  <div class="pannel"></div>
 </template>
 
 <script setup lang="ts"></script>
